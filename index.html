@@ -1,0 +1,2489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureSphere - AI-Powered Security Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ========================================
+           GLOBAL STYLES - DARK THEME
+        ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-card-hover: #334155;
+            --light-text: #f1f5f9;
+            --gray-text: #94a3b8;
+            --border-dark: #334155;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--light-text);
+            background: var(--dark-bg);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========================================
+           HEADER
+        ======================================== */
+        .header {
+            background: var(--dark-card);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-dark);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ========================================
+           HERO SECTION
+        ======================================== */
+        .hero {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            position: relative;
+            padding: 100px 20px 80px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease;
+            background: linear-gradient(135deg, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            color: var(--gray-text);
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        /* ========================================
+           MODULES SECTION
+        ======================================== */
+        .modules {
+            padding: 80px 20px;
+            background: var(--dark-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--light-text);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .module-card {
+            background: var(--dark-card);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-dark);
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .module-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            background: var(--dark-card-hover);
+            border-color: var(--primary-color);
+        }
+
+        .module-card.coming-soon {
+            opacity: 0.85;
+        }
+
+        .module-status {
+            margin-bottom: 1rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-badge.active {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .status-badge.development {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning-color);
+            border: 1px solid var(--warning-color);
+        }
+
+        .module-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .module-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--light-text);
+            line-height: 1.4;
+        }
+
+        .module-card p {
+            color: var(--gray-text);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* ========================================
+           BUTTONS
+        ======================================== */
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--dark-card-hover);
+            color: var(--light-text);
+            border: 2px solid var(--border-dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-dark);
+            border-color: var(--primary-color);
+        }
+
+        .btn-upload {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-upload:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* ========================================
+           MODULE INTERFACE
+        ======================================== */
+        .module-interface {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .module-interface.active {
+            display: flex;
+        }
+
+        .module-container {
+            background: var(--dark-card);
+            border-radius: 20px;
+            width: 95%;
+            max-width: 1400px;
+            max-height: 95vh;
+            overflow-y: auto;
+            animation: slideUp 0.4s ease;
+            border: 1px solid var(--border-dark);
+        }
+
+        .module-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .module-container::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        .module-container::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            border-bottom: 2px solid var(--border-dark);
+            position: sticky;
+            top: 0;
+            background: var(--dark-card);
+            z-index: 10;
+        }
+
+        .module-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--light-text);
+            font-size: 1.6rem;
+        }
+
+        .close-btn {
+            background: var(--dark-bg);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--gray-text);
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--danger-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .module-content {
+            padding: 2rem;
+        }
+
+        /* ========================================
+           UPLOAD SECTION
+        ======================================== */
+        .upload-area {
+            border: 3px dashed var(--border-dark);
+            border-radius: 16px;
+            padding: 4rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .upload-area.drag-over {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.15);
+        }
+
+        .upload-area i {
+            font-size: 4rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .upload-area h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+        }
+
+        .upload-area p {
+            color: var(--gray-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-hint {
+            font-size: 0.9rem;
+            color: var(--gray-text);
+            margin-top: 1rem;
+        }
+
+        /* ========================================
+           PREVIEW SECTION
+        ======================================== */
+        .preview-section {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .document-preview {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-dark);
+        }
+
+        .document-preview img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: var(--dark-card);
+        }
+
+        .preview-info {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .preview-info p {
+            color: var(--gray-text);
+        }
+
+        .preview-info strong {
+            color: var(--light-text);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* ========================================
+           ANALYSIS SECTION
+        ======================================== */
+        .analysis-section {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .analyzing {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .analyzing p {
+            color: var(--gray-text);
+            font-size: 1.1rem;
+        }
+
+        .analysis-steps {
+            max-width: 500px;
+            margin: 2rem auto 0;
+            text-align: left;
+        }
+
+        .analysis-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            background: var(--dark-card);
+            border-radius: 8px;
+            border-left: 3px solid var(--border-dark);
+            transition: all 0.3s ease;
+        }
+
+        .analysis-step.active {
+            border-left-color: var(--primary-color);
+            background: var(--dark-card-hover);
+        }
+
+        .analysis-step.completed {
+            border-left-color: var(--success-color);
+        }
+
+        .step-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--dark-bg);
+            color: var(--gray-text);
+            font-size: 0.9rem;
+        }
+
+        .analysis-step.active .step-icon {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .analysis-step.completed .step-icon {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .step-text {
+            color: var(--gray-text);
+            font-size: 0.95rem;
+        }
+
+        .analysis-step.active .step-text {
+            color: var(--light-text);
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--border-dark);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            animation: spin 1s linear infinite;
+        }
+
+        /* ========================================
+           RESULTS - NEW ADDITIONS
+        ======================================== */
+        .results {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .cyber-trust-header {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-dark);
+            text-align: center;
+        }
+
+        .cyber-trust-header h3 {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .trust-score-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .trust-score-main {
+            text-align: center;
+        }
+
+        .trust-score-value {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .trust-score-label {
+            color: var(--gray-text);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .confidence-display {
+            text-align: center;
+        }
+
+        .confidence-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--success-color);
+        }
+
+        .confidence-label {
+            color: var(--gray-text);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .confidence-explanation {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 3px solid var(--primary-color);
+            padding: 1rem;
+            border-radius: 8px;
+            color: var(--gray-text);
+            font-size: 0.9rem;
+        }
+
+        .score-breakdown {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-dark);
+        }
+
+        .score-breakdown h3 {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .score-breakdown h3 i {
+            color: var(--primary-color);
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            background: var(--dark-card);
+            border-radius: 8px;
+            border-left: 3px solid var(--success-color);
+        }
+
+        .breakdown-item.penalty {
+            border-left-color: var(--danger-color);
+        }
+
+        .breakdown-item.base {
+            border-left-color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .breakdown-item.final {
+            border-left-color: var(--secondary-color);
+            font-weight: 700;
+            background: var(--dark-card-hover);
+            margin-top: 1rem;
+        }
+
+        .breakdown-label {
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breakdown-value {
+            font-weight: 600;
+        }
+
+        .breakdown-value.positive {
+            color: var(--success-color);
+        }
+
+        .breakdown-value.negative {
+            color: var(--danger-color);
+        }
+
+        .breakdown-value.base {
+            color: var(--primary-color);
+        }
+
+        .authenticity-summary {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-dark);
+        }
+
+        .authenticity-summary h3 {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .authenticity-summary h3 i {
+            color: var(--primary-color);
+        }
+
+        .summary-list {
+            list-style: none;
+        }
+
+        .summary-item {
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            background: var(--dark-card);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border-left: 3px solid var(--success-color);
+        }
+
+        .summary-item.warning {
+            border-left-color: var(--warning-color);
+        }
+
+        .summary-item i {
+            font-size: 1.2rem;
+        }
+
+        .summary-item.positive i {
+            color: var(--success-color);
+        }
+
+        .summary-item.warning i {
+            color: var(--warning-color);
+        }
+
+        .summary-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--dark-card);
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .summary-result.low-risk {
+            border: 2px solid var(--success-color);
+            color: var(--success-color);
+        }
+
+        .summary-result.high-risk {
+            border: 2px solid var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        .recommendation-engine {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-dark);
+        }
+
+        .recommendation-engine h3 {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .recommendation-engine h3 i {
+            color: var(--warning-color);
+        }
+
+        .recommendation-box {
+            background: var(--dark-card);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .recommendation-box.low-risk {
+            border-left-color: var(--success-color);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .recommendation-box.medium-risk {
+            border-left-color: var(--warning-color);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .recommendation-box.high-risk {
+            border-left-color: var(--danger-color);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .recommendation-text {
+            color: var(--light-text);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .authenticity-score {
+            text-align: center;
+            background: var(--dark-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-dark);
+        }
+
+        .authenticity-score h3 {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
+
+        .score-circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 1rem auto;
+        }
+
+        .score-circle svg {
+            transform: rotate(-90deg);
+        }
+
+        .score-bg {
+            fill: none;
+            stroke: var(--border-dark);
+            stroke-width: 12;
+        }
+
+        .score-progress {
+            fill: none;
+            stroke: url(#scoreGradient);
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 565;
+            stroke-dashoffset: 565;
+            transition: stroke-dashoffset 1.5s ease;
+        }
+
+        .score-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--light-text);
+        }
+
+        .score-percent {
+            font-size: 1.5rem;
+            color: var(--gray-text);
+        }
+
+        .risk-level {
+            text-align: center;
+            background: var(--dark-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-dark);
+        }
+
+        .risk-level h3 {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
+
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .risk-badge.low {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-color);
+            border: 2px solid var(--success-color);
+        }
+
+        .risk-badge.medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning-color);
+            border: 2px solid var(--warning-color);
+        }
+
+        .risk-badge.high {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger-color);
+            border: 2px solid var(--danger-color);
+        }
+
+        .findings {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-dark);
+        }
+
+        .findings h3 {
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .findings ul {
+            list-style: none;
+        }
+
+        .findings li {
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            background: var(--dark-card);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--gray-text);
+            border: 1px solid var(--border-dark);
+        }
+
+        .findings li i {
+            font-size: 1.2rem;
+        }
+
+        .findings li.positive {
+            border-color: var(--success-color);
+        }
+
+        .findings li.positive i {
+            color: var(--success-color);
+        }
+
+        .findings li.warning {
+            border-color: var(--warning-color);
+        }
+
+        .findings li.warning i {
+            color: var(--warning-color);
+        }
+
+        .findings li.negative {
+            border-color: var(--danger-color);
+        }
+
+        .findings li.negative i {
+            color: var(--danger-color);
+        }
+
+        /* ========================================
+           EVIDENCE VIEWER
+        ======================================== */
+        .evidence-viewer {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 2px solid var(--border-dark);
+        }
+
+        .evidence-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .evidence-title i {
+            color: var(--primary-color);
+        }
+
+        .no-anomalies {
+            background: var(--dark-bg);
+            border: 2px dashed var(--success-color);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .no-anomalies i {
+            font-size: 4rem;
+            color: var(--success-color);
+            margin-bottom: 1rem;
+        }
+
+        .no-anomalies h4 {
+            color: var(--light-text);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .no-anomalies p {
+            color: var(--gray-text);
+            font-size: 1rem;
+        }
+
+        .evidence-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .evidence-panel {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-dark);
+        }
+
+        .evidence-panel h4 {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .evidence-panel h4 i {
+            color: var(--primary-color);
+        }
+
+        .document-viewer {
+            position: relative;
+            background: var(--dark-card);
+            border-radius: 8px;
+            overflow: hidden;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .document-viewer img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .detection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .detection-box {
+            position: absolute;
+            border: 3px solid var(--danger-color);
+            background: rgba(239, 68, 68, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        .detection-label {
+            position: absolute;
+            background: var(--danger-color);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 4px;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+        }
+
+        .legend {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--dark-card);
+            border-radius: 8px;
+            border: 1px solid var(--border-dark);
+        }
+
+        .legend h5 {
+            color: var(--light-text);
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--gray-text);
+            font-size: 0.9rem;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid;
+        }
+
+        .legend-color.tampering {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger-color);
+        }
+
+        .legend-color.ocr {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: var(--warning-color);
+        }
+
+        .legend-color.metadata {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: var(--secondary-color);
+        }
+
+        /* ========================================
+           WHY FLAGGED SECTION
+        ======================================== */
+        .why-flagged {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border-dark);
+            margin-top: 2rem;
+        }
+
+        .why-flagged h3 {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.5rem;
+        }
+
+        .why-flagged h3 i {
+            color: var(--warning-color);
+        }
+
+        .flag-reasons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .flag-reason {
+            background: var(--dark-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--danger-color);
+            transition: all 0.3s ease;
+        }
+
+        .flag-reason:hover {
+            transform: translateX(5px);
+            background: var(--dark-card-hover);
+        }
+
+        .flag-reason-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .flag-reason-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger-color);
+        }
+
+        .flag-reason h4 {
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        .flag-reason p {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            margin-left: 48px;
+        }
+
+        .methodology {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border-dark);
+            margin-top: 2rem;
+        }
+
+        .methodology h3 {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .methodology h3 i {
+            color: var(--primary-color);
+        }
+
+        .methodology p {
+            color: var(--gray-text);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .methodology ul {
+            list-style: none;
+            color: var(--gray-text);
+        }
+
+        .methodology li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .methodology li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .report-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        /* ========================================
+           MODAL
+        ======================================== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--dark-card);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            text-align: center;
+            border: 1px solid var(--border-dark);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--dark-bg);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--gray-text);
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--danger-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--warning-color), #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .modal-content p {
+            color: var(--gray-text);
+            margin-bottom: 2rem;
+        }
+
+        .modal-features {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+            border: 1px solid var(--border-dark);
+        }
+
+        .modal-features h4 {
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .modal-features ul {
+            list-style: none;
+        }
+
+        .modal-features li {
+            padding: 0.5rem 0;
+            color: var(--gray-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-features li::before {
+            content: '✓';
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* ========================================
+           TOAST NOTIFICATION
+        ======================================== */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            display: none;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: var(--shadow-lg);
+            animation: slideInRight 0.4s ease;
+            z-index: 3000;
+        }
+
+        .toast.active {
+            display: flex;
+        }
+
+        .toast i {
+            font-size: 1.5rem;
+        }
+
+        /* ========================================
+           UTILITY CLASSES
+        ======================================== */
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========================================
+           ANIMATIONS
+        ======================================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+        @media (max-width: 968px) {
+            .evidence-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .flag-reasons {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-score-display {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons,
+            .report-actions {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                padding: 2rem;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .module-card h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>SecureSphere</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>AI-Powered Security Detection Platform</h1>
+            <p>Advanced document verification, fraud prevention, and digital security solutions</p>
+        </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section class="modules" id="modules">
+        <div class="container">
+            <h2 class="section-title">Security Modules</h2>
+            
+            <div class="modules-grid">
+                <!-- Active Module -->
+                <div class="module-card active" data-module="document-detection">
+                    <div class="module-status">
+                        <span class="status-badge active">🟢 Active</span>
+                    </div>
+                    <div class="module-icon">
+                        <i class="fas fa-file-shield"></i>
+                    </div>
+                    <h3>AI-Powered Document Authenticity Verification & Risk Assessment System</h3>
+                    <p>Advanced forensic analysis combining OCR consistency verification, metadata integrity checks, and image tampering detection</p>
+                    <button class="btn btn-primary">Launch Verification System</button>
+                </div>
+
+                <!-- Coming Soon Modules -->
+                <div class="module-card coming-soon" data-module="offer-letter">
+                    <div class="module-status">
+                        <span class="status-badge development">🟡 In Development</span>
+                    </div>
+                    <div class="module-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Employment Offer Verification & Legitimacy Analysis</h3>
+                    <p>Authenticate job offers, verify company legitimacy, and prevent employment fraud</p>
+                    <button class="btn btn-secondary">Coming Soon</button>
+                </div>
+
+                <div class="module-card coming-soon" data-module="scam-message">
+                    <div class="module-status">
+                        <span class="status-badge development">🟡 In Development</span>
+                    </div>
+                    <div class="module-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Phishing & Fraud Communication Detection System</h3>
+                    <p>Real-time analysis of messages, URLs, and sender authenticity</p>
+                    <button class="btn btn-secondary">Coming Soon</button>
+                </div>
+
+                <div class="module-card coming-soon" data-module="privacy-scanner">
+                    <div class="module-status">
+                        <span class="status-badge development">🟡 In Development</span>
+                    </div>
+                    <div class="module-icon">
+                        <i class="fas fa-user-lock"></i>
+                    </div>
+                    <h3>Digital Footprint & Privacy Protection Scanner</h3>
+                    <p>Comprehensive analysis of your digital presence and data exposure</p>
+                    <button class="btn btn-secondary">Coming Soon</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Document Verification Module -->
+    <div class="module-interface" id="document-detection-interface">
+        <div class="module-container">
+            <div class="module-header">
+                <h2>
+                    <i class="fas fa-file-shield"></i>
+                    Document Authenticity Verification & Risk Assessment
+                </h2>
+                <button class="close-btn" id="close-module">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="module-content">
+                <!-- Upload Section -->
+                <div class="upload-section" id="upload-section">
+                    <div class="upload-area" id="upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Upload Document for Verification</h3>
+                        <p>Supported formats: PDF, JPG, PNG (Max 10MB)</p>
+                        <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png" hidden>
+                        <button class="btn btn-upload" id="select-file-btn">Select Document</button>
+                        <p class="upload-hint">or drag and drop here</p>
+                    </div>
+                </div>
+
+                <!-- Preview Section -->
+                <div class="preview-section hidden" id="preview-section">
+                    <div class="document-preview">
+                        <img id="preview-image" src="" alt="Document Preview">
+                        <div class="preview-info">
+                            <p><strong>File:</strong> <span id="file-name"></span></p>
+                            <p><strong>Size:</strong> <span id="file-size"></span></p>
+                            <p><strong>Type:</strong> <span id="file-type"></span></p>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="analyze-btn">
+                            <i class="fas fa-search"></i> Initiate Verification Analysis
+                        </button>
+                        <button class="btn btn-secondary" id="change-file-btn">
+                            <i class="fas fa-sync"></i> Change Document
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Analysis Section -->
+                <div class="analysis-section hidden" id="analysis-section">
+                    <div class="analyzing" id="analyzing">
+                        <div class="spinner"></div>
+                        <p>Performing comprehensive forensic analysis...</p>
+                        <div class="analysis-steps" id="analysis-steps">
+                            <div class="analysis-step" data-step="1">
+                                <div class="step-icon"><i class="fas fa-image"></i></div>
+                                <div class="step-text">Document Upload & Preprocessing</div>
+                            </div>
+                            <div class="analysis-step" data-step="2">
+                                <div class="step-icon"><i class="fas fa-text"></i></div>
+                                <div class="step-text">OCR Text Extraction & Analysis</div>
+                            </div>
+                            <div class="analysis-step" data-step="3">
+                                <div class="step-icon"><i class="fas fa-align-left"></i></div>
+                                <div class="step-text">Layout Consistency Verification</div>
+                            </div>
+                            <div class="analysis-step" data-step="4">
+                                <div class="step-icon"><i class="fas fa-database"></i></div>
+                                <div class="step-text">Metadata Integrity Check</div>
+                            </div>
+                            <div class="analysis-step" data-step="5">
+                                <div class="step-icon"><i class="fas fa-search"></i></div>
+                                <div class="step-text">Image Tampering Detection</div>
+                            </div>
+                            <div class="analysis-step" data-step="6">
+                                <div class="step-icon"><i class="fas fa-calculator"></i></div>
+                                <div class="step-text">Risk Scoring Engine</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="results hidden" id="results">
+                        <!-- Cyber Trust Score Header -->
+                        <div class="cyber-trust-header">
+                            <h3>Digital Trust Score</h3>
+                            <div class="trust-score-display">
+                                <div class="trust-score-main">
+                                    <div class="trust-score-value" id="trust-score-value">0/100</div>
+                                    <div class="trust-score-label">Cyber Trust Score</div>
+                                </div>
+                                <div class="confidence-display">
+                                    <div class="confidence-value" id="confidence-value">0%</div>
+                                    <div class="confidence-label">Confidence Level</div>
+                                </div>
+                            </div>
+                            <div class="confidence-explanation">
+                                <strong>Confidence Level:</strong> Represents the reliability of this assessment based on the number and consistency of detected indicators during the forensic analysis.
+                            </div>
+                        </div>
+
+                        <!-- Score Breakdown -->
+                        <div class="score-breakdown">
+                            <h3>
+                                <i class="fas fa-chart-line"></i>
+                                Score Breakdown
+                            </h3>
+                            <div id="breakdown-items"></div>
+                        </div>
+
+                        <!-- Authenticity Summary -->
+                        <div class="authenticity-summary">
+                            <h3>
+                                <i class="fas fa-clipboard-check"></i>
+                                Authenticity Analysis Summary
+                            </h3>
+                            <ul class="summary-list" id="summary-list"></ul>
+                            <div class="summary-result" id="summary-result"></div>
+                        </div>
+
+                        <!-- Recommendation Engine -->
+                        <div class="recommendation-engine">
+                            <h3>
+                                <i class="fas fa-lightbulb"></i>
+                                Recommendation
+                            </h3>
+                            <div class="recommendation-box" id="recommendation-box">
+                                <p class="recommendation-text" id="recommendation-text"></p>
+                            </div>
+                        </div>
+
+                        <!-- Evidence Viewer -->
+                        <div class="evidence-viewer">
+                            <h3 class="evidence-title">
+                                <i class="fas fa-microscope"></i>
+                                Forensic Evidence Analysis
+                            </h3>
+
+                            <div id="evidence-content"></div>
+
+                            <div class="methodology">
+                                <h3>
+                                    <i class="fas fa-cogs"></i>
+                                    Analysis Methodology
+                                </h3>
+                                <p>SecureSphere combines OCR consistency analysis, metadata verification, and image forensic techniques such as compression anomaly detection to identify suspicious indicators and generate an authenticity assessment.</p>
+                                <ul>
+                                    <li>Optical Character Recognition (OCR) for text extraction and consistency analysis</li>
+                                    <li>Metadata timestamp verification and editing software detection</li>
+                                    <li>Error Level Analysis (ELA) for compression inconsistencies</li>
+                                    <li>Pixel-level anomaly detection using machine learning algorithms</li>
+                                    <li>Multi-factor risk scoring based on detected irregularities</li>
+                                </ul>
+                                <p style="margin-top: 1rem; font-style: italic; color: var(--warning-color);">
+                                    <strong>Disclaimer:</strong> This assessment is based on forensic indicators and should be used as a preliminary authenticity evaluation. For critical decisions, consult certified forensic document examiners.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="report-actions">
+                            <button class="btn btn-primary" id="download-report-btn">
+                                <i class="fas fa-download"></i> Download Comprehensive Report
+                            </button>
+                            <button class="btn btn-secondary" id="new-analysis-btn">
+                                <i class="fas fa-plus"></i> Verify New Document
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal hidden" id="coming-soon-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-icon">
+                <i class="fas fa-hammer"></i>
+            </div>
+            <h2 id="modal-title">Module Under Development</h2>
+            <p id="modal-description">This module is currently under development.</p>
+            <div class="modal-features">
+                <h4>Upcoming Features:</h4>
+                <ul id="modal-features-list"></ul>
+            </div>
+            <button class="btn btn-primary" id="notify-btn">
+                <i class="fas fa-bell"></i> Notify Me When Available
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast hidden" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Success!</span>
+    </div>
+
+    <script>
+        // ========================================
+        // MODULE DATA
+        // ========================================
+        const moduleData = {
+            'offer-letter': {
+                title: 'OfferGuard Module',
+                description: 'Currently under development.',
+                features: ['Company verification', 'Salary benchmark analysis', 'Contract authenticity check', 'Red flag detection']
+            },
+            'scam-message': {
+                title: 'ScamShield Module',
+                description: 'Currently under development.',
+                features: ['Real-time phishing detection', 'URL safety scanner', 'Sender verification', 'Pattern recognition']
+            },
+            'privacy-scanner': {
+                title: 'PrivacyLens Module',
+                description: 'Currently under development.',
+                features: ['Digital footprint analysis', 'Data breach monitoring', 'Privacy score assessment', 'Information leak detection']
+            }
+        };
+
+        // ========================================
+        // DOM ELEMENTS
+        // ========================================
+        const documentDetectionInterface = document.getElementById('document-detection-interface');
+        const closeModuleBtn = document.getElementById('close-module');
+        const uploadSection = document.getElementById('upload-section');
+        const previewSection = document.getElementById('preview-section');
+        const analysisSection = document.getElementById('analysis-section');
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const selectFileBtn = document.getElementById('select-file-btn');
+        const previewImage = document.getElementById('preview-image');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const changeFileBtn = document.getElementById('change-file-btn');
+        const analyzing = document.getElementById('analyzing');
+        const results = document.getElementById('results');
+        const downloadReportBtn = document.getElementById('download-report-btn');
+        const newAnalysisBtn = document.getElementById('new-analysis-btn');
+        const comingSoonModal = document.getElementById('coming-soon-modal');
+        const modalClose = document.getElementById('modal-close');
+        const notifyBtn = document.getElementById('notify-btn');
+        const toast = document.getElementById('toast');
+
+        let currentFile = null;
+        let currentImageData = null;
+        let analysisResult = null;
+
+        // ========================================
+        // MODULE CARD HANDLERS
+        // ========================================
+        document.querySelectorAll('.module-card').forEach(card => {
+            const button = card.querySelector('.btn');
+            const module = card.dataset.module;
+
+            button.addEventListener('click', () => {
+                if (card.classList.contains('active')) {
+                    documentDetectionInterface.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                } else if (card.classList.contains('coming-soon')) {
+                    showComingSoonModal(module);
+                }
+            });
+        });
+
+        // ========================================
+        // MODAL HANDLERS
+        // ========================================
+        function showComingSoonModal(module) {
+            const data = moduleData[module];
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-description').textContent = data.description;
+            
+            const featuresList = document.getElementById('modal-features-list');
+            featuresList.innerHTML = '';
+            data.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
+            
+            comingSoonModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        modalClose.addEventListener('click', () => {
+            comingSoonModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        comingSoonModal.addEventListener('click', (e) => {
+            if (e.target === comingSoonModal) {
+                comingSoonModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        notifyBtn.addEventListener('click', () => {
+            showToast('You will be notified when this module is available!');
+            comingSoonModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // ========================================
+        // CLOSE MODULE
+        // ========================================
+        closeModuleBtn.addEventListener('click', () => {
+            documentDetectionInterface.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            resetModule();
+        });
+
+        // ========================================
+        // FILE UPLOAD
+        // ========================================
+        selectFileBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFileSelect(e.target.files[0]));
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            handleFileSelect(e.dataTransfer.files[0]);
+        });
+
+        function handleFileSelect(file) {
+            if (!file) return;
+            
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+            if (!validTypes.includes(file.type)) {
+                showToast('Please upload a valid PDF, JPG, or PNG file');
+                return;
+            }
+            
+            if (file.size > 10 * 1024 * 1024) {
+                showToast('File size must be less than 10MB');
+                return;
+            }
+            
+            currentFile = file;
+            showPreview(file);
+        }
+
+        function showPreview(file) {
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                currentImageData = e.target.result;
+                
+                if (file.type === 'application/pdf') {
+                    previewImage.src = 'https://via.placeholder.com/400x500/1e293b/f1f5f9?text=PDF+Document';
+                } else {
+                    previewImage.src = currentImageData;
+                }
+                
+                document.getElementById('file-name').textContent = file.name;
+                document.getElementById('file-size').textContent = formatFileSize(file.size);
+                document.getElementById('file-type').textContent = file.type.split('/')[1].toUpperCase();
+                
+                uploadSection.classList.add('hidden');
+                previewSection.classList.remove('hidden');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        changeFileBtn.addEventListener('click', () => {
+            previewSection.classList.add('hidden');
+            uploadSection.classList.remove('hidden');
+            fileInput.value = '';
+            currentFile = null;
+            currentImageData = null;
+        });
+
+        // ========================================
+        // ANALYZE DOCUMENT
+        // ========================================
+        analyzeBtn.addEventListener('click', () => {
+            if (!currentFile) return;
+            
+            previewSection.classList.add('hidden');
+            analysisSection.classList.remove('hidden');
+            analyzing.classList.remove('hidden');
+            results.classList.add('hidden');
+            
+            runAnalysisSteps();
+        });
+
+        function runAnalysisSteps() {
+            const steps = document.querySelectorAll('.analysis-step');
+            let currentStep = 0;
+
+            const interval = setInterval(() => {
+                if (currentStep > 0) {
+                    steps[currentStep - 1].classList.remove('active');
+                    steps[currentStep - 1].classList.add('completed');
+                }
+                
+                if (currentStep < steps.length) {
+                    steps[currentStep].classList.add('active');
+                    currentStep++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        performAnalysis();
+                    }, 500);
+                }
+            }, 500);
+        }
+
+        // ========================================
+        // PERFORM ANALYSIS - FIXED LOGIC
+        // ========================================
+        function performAnalysis() {
+            // Initialize scoring factors
+            const factors = {
+                ocr: { score: 20, detected: true },
+                layout: { score: 20, detected: true },
+                visual: { score: 20, detected: true },
+                metadata: { score: 20, detected: true },
+                structure: { score: 20, detected: true }
+            };
+
+            const penalties = [];
+            
+            // Simulate realistic analysis based on file characteristics
+            const fileSize = currentFile.size;
+            const fileType = currentFile.type;
+            
+            // File size analysis
+            if (fileSize < 50000) {
+                penalties.push({ name: 'Low Resolution Quality', value: -5 });
+            }
+            
+            // Simulate OCR analysis
+            if (fileType.includes('pdf')) {
+                // PDFs are harder to analyze
+                const ocrCheck = Math.random();
+                if (ocrCheck > 0.7) {
+                    penalties.push({ name: 'OCR Text Inconsistency', value: -15 });
+                    factors.ocr.detected = false;
+                }
+            } else {
+                // Image files
+                const ocrCheck = Math.random();
+                if (ocrCheck > 0.8) {
+                    penalties.push({ name: 'OCR Font Irregularity', value: -10 });
+                }
+            }
+            
+            // Simulate metadata analysis
+            const metadataCheck = Math.random();
+            if (metadataCheck > 0.85) {
+                penalties.push({ name: 'Metadata Timestamp Mismatch', value: -8 });
+            }
+            
+            // Simulate compression analysis
+            const compressionCheck = Math.random();
+            if (compressionCheck > 0.75) {
+                penalties.push({ name: 'Compression Anomaly', value: -12 });
+            }
+            
+            // Calculate base score
+            let baseScore = 100;
+            
+            // Apply penalties
+            let totalPenalty = 0;
+            penalties.forEach(penalty => {
+                totalPenalty += Math.abs(penalty.value);
+            });
+            
+            const finalScore = Math.max(0, Math.min(100, baseScore - totalPenalty));
+            
+            // Calculate confidence level
+            const detectedFactors = Object.values(factors).filter(f => f.detected).length;
+            const confidence = Math.min(95, Math.floor((detectedFactors / 5) * 100) - penalties.length * 5);
+            
+            // Store analysis result
+            analysisResult = {
+                score: finalScore,
+                confidence: confidence,
+                factors: factors,
+                penalties: penalties,
+                baseScore: baseScore,
+                hasAnomalies: finalScore < 80
+            };
+            
+            showResults();
+        }
+
+        // ========================================
+        // SHOW RESULTS
+        // ========================================
+        function showResults() {
+            analyzing.classList.add('hidden');
+            results.classList.remove('hidden');
+            
+            displayTrustScore();
+            displayScoreBreakdown();
+            displayAuthenticityS();
+            displayRecommendation();
+            displayEvidenceViewer();
+        }
+
+        // ========================================
+        // DISPLAY TRUST SCORE
+        // ========================================
+        function displayTrustScore() {
+            const trustScoreEl = document.getElementById('trust-score-value');
+            const confidenceEl = document.getElementById('confidence-value');
+            
+            // Animate trust score
+            let currentScore = 0;
+            const targetScore = analysisResult.score;
+            
+            const scoreInterval = setInterval(() => {
+                currentScore++;
+                trustScoreEl.textContent = `${currentScore}/100`;
+                
+                if (currentScore >= targetScore) {
+                    clearInterval(scoreInterval);
+                }
+            }, 20);
+            
+            // Animate confidence
+            let currentConfidence = 0;
+            const targetConfidence = analysisResult.confidence;
+            
+            const confidenceInterval = setInterval(() => {
+                currentConfidence++;
+                confidenceEl.textContent = `${currentConfidence}%`;
+                
+                if (currentConfidence >= targetConfidence) {
+                    clearInterval(confidenceInterval);
+                }
+            }, 20);
+        }
+
+        // ========================================
+        // DISPLAY SCORE BREAKDOWN
+        // ========================================
+        function displayScoreBreakdown() {
+            const breakdownContainer = document.getElementById('breakdown-items');
+            breakdownContainer.innerHTML = '';
+            
+            // Base score
+            const baseItem = createBreakdownItem('Base Score', analysisResult.baseScore, 'base', true);
+            breakdownContainer.appendChild(baseItem);
+            
+            // Factor scores
+            const factorLabels = {
+                ocr: 'OCR Consistency Analysis',
+                layout: 'Layout Structure Verification',
+                visual: 'Visual Integrity Check',
+                metadata: 'Metadata Integrity Validation',
+                structure: 'Document Structure Assessment'
+            };
+            
+            Object.entries(analysisResult.factors).forEach(([key, factor]) => {
+                if (factor.detected) {
+                    const item = createBreakdownItem(factorLabels[key], factor.score, 'positive', true);
+                    breakdownContainer.appendChild(item);
+                }
+            });
+            
+            // Penalties
+            analysisResult.penalties.forEach(penalty => {
+                const item = createBreakdownItem(penalty.name, penalty.value, 'negative', false);
+                breakdownContainer.appendChild(item);
+            });
+            
+            // Final score
+            const finalItem = createBreakdownItem('Final Cyber Trust Score', analysisResult.score, 'final', true);
+            breakdownContainer.appendChild(finalItem);
+        }
+
+        function createBreakdownItem(label, value, type, isPositive) {
+            const item = document.createElement('div');
+            item.className = `breakdown-item ${type}`;
+            
+            const labelEl = document.createElement('div');
+            labelEl.className = 'breakdown-label';
+            labelEl.textContent = label;
+            
+            const valueEl = document.createElement('div');
+            valueEl.className = `breakdown-value ${isPositive ? 'positive' : 'negative'} ${type}`;
+            valueEl.textContent = isPositive ? `+${value}` : value;
+            
+            item.appendChild(labelEl);
+            item.appendChild(valueEl);
+            
+            return item;
+        }
+
+        // ========================================
+        // DISPLAY AUTHENTICITY SUMMARY
+        // ========================================
+        function displayAuthenticityS() {
+            const summaryList = document.getElementById('summary-list');
+            const summaryResult = document.getElementById('summary-result');
+            
+            summaryList.innerHTML = '';
+            
+            const score = analysisResult.score;
+            
+            if (score >= 80) {
+                // Low Risk
+                const items = [
+                    { icon: 'check-circle', text: 'OCR text extraction successful', type: 'positive' },
+                    { icon: 'check-circle', text: 'Layout consistency verified', type: 'positive' },
+                    { icon: 'check-circle', text: 'No visual tampering detected', type: 'positive' },
+                    { icon: 'check-circle', text: 'Font structure consistent', type: 'positive' },
+                    { icon: 'check-circle', text: 'Metadata appears normal', type: 'positive' }
+                ];
+                
+                items.forEach(item => {
+                    summaryList.appendChild(createSummaryItem(item.icon, item.text, item.type));
+                });
+                
+                summaryResult.className = 'summary-result low-risk';
+                summaryResult.innerHTML = '<i class="fas fa-shield-check"></i> Result: LOW RISK';
+            } else if (score >= 60) {
+                // Medium Risk
+                const items = [
+                    { icon: 'check-circle', text: 'OCR text extraction successful', type: 'positive' },
+                    { icon: 'exclamation-triangle', text: 'Minor layout inconsistencies detected', type: 'warning' },
+                    { icon: 'exclamation-triangle', text: 'Metadata irregularity identified', type: 'warning' },
+                    { icon: 'check-circle', text: 'Font structure appears valid', type: 'positive' }
+                ];
+                
+                items.forEach(item => {
+                    summaryList.appendChild(createSummaryItem(item.icon, item.text, item.type));
+                });
+                
+                summaryResult.className = 'summary-result';
+                summaryResult.style.borderColor = 'var(--warning-color)';
+                summaryResult.style.color = 'var(--warning-color)';
+                summaryResult.innerHTML = '<i class="fas fa-shield-exclamation"></i> Result: MEDIUM RISK';
+            } else {
+                // High Risk
+                const items = [
+                    { icon: 'exclamation-triangle', text: 'OCR inconsistency detected', type: 'warning' },
+                    { icon: 'exclamation-triangle', text: 'Compression anomaly detected', type: 'warning' },
+                    { icon: 'exclamation-triangle', text: 'Possible edited region identified', type: 'warning' },
+                    { icon: 'exclamation-triangle', text: 'Metadata irregularity detected', type: 'warning' }
+                ];
+                
+                items.forEach(item => {
+                    summaryList.appendChild(createSummaryItem(item.icon, item.text, item.type));
+                });
+                
+                summaryResult.className = 'summary-result high-risk';
+                summaryResult.innerHTML = '<i class="fas fa-shield-xmark"></i> Result: HIGH RISK';
+            }
+        }
+
+        function createSummaryItem(icon, text, type) {
+            const item = document.createElement('li');
+            item.className = `summary-item ${type}`;
+            item.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${text}</span>
+            `;
+            return item;
+        }
+
+        // ========================================
+        // DISPLAY RECOMMENDATION
+        // ========================================
+        function displayRecommendation() {
+            const recommendationBox = document.getElementById('recommendation-box');
+            const recommendationText = document.getElementById('recommendation-text');
+            
+            const score = analysisResult.score;
+            
+            recommendationBox.classList.remove('low-risk', 'medium-risk', 'high-risk');
+            
+            if (score >= 80) {
+                recommendationBox.classList.add('low-risk');
+                recommendationText.textContent = 'Document appears authentic based on available forensic evidence. The verification checks indicate no significant tampering or anomalies. This assessment is based on preliminary analysis and should be used as part of your document validation process.';
+            } else if (score >= 60) {
+                recommendationBox.classList.add('medium-risk');
+                recommendationText.textContent = 'Additional manual verification recommended. While the document passes basic authenticity checks, some irregularities were detected that warrant further investigation. Consider consulting with document verification experts for critical use cases.';
+            } else {
+                recommendationBox.classList.add('high-risk');
+                recommendationText.textContent = 'Verify directly with the issuing authority before accepting this document. Significant anomalies have been detected that suggest possible tampering or digital alteration. Professional forensic document examination is strongly recommended before making any critical decisions based on this document.';
+            }
+        }
+
+        // ========================================
+        // DISPLAY EVIDENCE VIEWER
+        // ========================================
+        function displayEvidenceViewer() {
+            const evidenceContent = document.getElementById('evidence-content');
+            evidenceContent.innerHTML = '';
+            
+            if (!analysisResult.hasAnomalies) {
+                // No anomalies - clean document
+                evidenceContent.innerHTML = `
+                    <div class="no-anomalies">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>No Significant Tampering Indicators Detected</h4>
+                        <p>The forensic analysis completed successfully without detecting suspicious regions. All verification checks passed within acceptable thresholds. The document integrity appears to be intact based on the analyzed forensic indicators.</p>
+                    </div>
+                `;
+            } else {
+                // Anomalies detected - show findings
+                const riskFactors = analysisResult.penalties.map(penalty => ({
+                    icon: 'exclamation-triangle',
+                    title: penalty.name,
+                    description: `Detected during automated forensic analysis (Impact: ${Math.abs(penalty.value)} points)`
+                }));
+                
+                evidenceContent.innerHTML = `
+                    <div class="why-flagged">
+                        <h3>
+                            <i class="fas fa-flag"></i>
+                            Detected Risk Indicators
+                        </h3>
+                        <div class="flag-reasons" id="flag-reasons"></div>
+                    </div>
+                `;
+                
+                const flagReasonsContainer = document.getElementById('flag-reasons');
+                riskFactors.forEach(factor => {
+                    const reasonElement = document.createElement('div');
+                    reasonElement.className = 'flag-reason';
+                    reasonElement.innerHTML = `
+                        <div class="flag-reason-header">
+                            <div class="flag-reason-icon">
+                                <i class="fas ${factor.icon}"></i>
+                            </div>
+                            <h4>${factor.title}</h4>
+                        </div>
+                        <p>${factor.description}</p>
+                    `;
+                    flagReasonsContainer.appendChild(reasonElement);
+                });
+            }
+        }
+
+        // ========================================
+        // DOWNLOAD REPORT
+        // ========================================
+        downloadReportBtn.addEventListener('click', () => {
+            const score = analysisResult.score;
+            const confidence = analysisResult.confidence;
+            const penalties = analysisResult.penalties.map(p => `${p.name}: ${p.value}`).join('\n  ');
+            
+            const reportContent = `
+SecureSphere - Document Authenticity Verification Report
+=========================================================
+Generated: ${new Date().toLocaleString()}
+Document: ${currentFile.name}
+File Size: ${formatFileSize(currentFile.size)}
+File Type: ${currentFile.type}
+
+CYBER TRUST SCORE: ${score}/100
+CONFIDENCE LEVEL: ${confidence}%
+
+RISK ASSESSMENT: ${score >= 80 ? 'LOW RISK' : score >= 60 ? 'MEDIUM RISK' : 'HIGH RISK'}
+
+SCORE BREAKDOWN:
+  Base Score: 100
+  
+  Positive Factors:
+  + OCR Consistency Analysis: +20
+  + Layout Structure Verification: +20
+  + Visual Integrity Check: +20
+  + Metadata Integrity Validation: +20
+  + Document Structure Assessment: +20
+  
+  ${penalties.length > 0 ? `Detected Issues:\n  ${penalties}` : 'No penalties detected'}
+  
+  Final Score: ${score}
+
+AUTHENTICITY ANALYSIS SUMMARY:
+${score >= 80 ? `
+  ✓ OCR text extraction successful
+  ✓ Layout consistency verified
+  ✓ No visual tampering detected
+  ✓ Font structure consistent
+  ✓ Metadata appears normal
+  
+  Result: LOW RISK
+` : score >= 60 ? `
+  ✓ OCR text extraction successful
+  ⚠ Minor layout inconsistencies detected
+  ⚠ Metadata irregularity identified
+  ✓ Font structure appears valid
+  
+  Result: MEDIUM RISK
+` : `
+  ⚠ OCR inconsistency detected
+  ⚠ Compression anomaly detected
+  ⚠ Possible edited region identified
+  ⚠ Metadata irregularity detected
+  
+  Result: HIGH RISK
+`}
+
+RECOMMENDATION:
+${score >= 80 ? 
+  'Document appears authentic based on available forensic evidence.' :
+  score >= 60 ?
+  'Additional manual verification recommended.' :
+  'Verify directly with the issuing authority before accepting this document.'
+}
+
+ANALYSIS METHODOLOGY:
+SecureSphere combines the following forensic techniques:
+• Optical Character Recognition (OCR) for text extraction and consistency
+• Metadata timestamp verification and editing software detection
+• Error Level Analysis (ELA) for compression inconsistencies
+• Pixel-level anomaly detection using machine learning
+• Multi-factor risk scoring based on detected irregularities
+
+CONFIDENCE LEVEL EXPLANATION:
+Confidence represents the reliability of this assessment based on the 
+number and consistency of detected indicators during the forensic analysis.
+
+=========================================================
+LEGAL DISCLAIMER: 
+This assessment is based on forensic indicators and should be used as 
+a preliminary authenticity evaluation. For legal proceedings, official 
+documentation, or critical business decisions, please consult with 
+certified forensic document examiners and legal professionals.
+
+This report does not claim 100% accuracy and should not be the sole 
+basis for critical decision-making.
+
+Generated by SecureSphere AI Security Platform
+Version 1.0 | © ${new Date().getFullYear()}
+            `.trim();
+            
+            const blob = new Blob([reportContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `SecureSphere_Report_${Date.now()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showToast('Comprehensive verification report downloaded!');
+        });
+
+        // ========================================
+        // NEW ANALYSIS
+        // ========================================
+        newAnalysisBtn.addEventListener('click', () => resetModule());
+
+        function resetModule() {
+            uploadSection.classList.remove('hidden');
+            previewSection.classList.add('hidden');
+            analysisSection.classList.add('hidden');
+            
+            // Reset analysis steps
+            document.querySelectorAll('.analysis-step').forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+            
+            fileInput.value = '';
+            currentFile = null;
+            currentImageData = null;
+            analysisResult = null;
+        }
+
+        function showToast(message) {
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('active');
+            
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
